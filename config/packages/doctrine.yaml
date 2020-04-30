@@ -1,0 +1,27 @@
+parameters:
+    env(DATABASE_HOST): 'postgres'
+    env(DATABASE_PORT): '5432'
+    env(DATABASE_USER): 'symfony'
+    env(DATABASE_PASSWORD): 'symfony'
+    env(DATABASE_NAME): 'symfony'
+
+doctrine:
+    dbal:
+        driver: 'pdo_pgsql'
+        server_version: '9.6'
+        host: '%env(resolve:DATABASE_HOST)%'
+        port: '%env(resolve:DATABASE_PORT)%'
+        dbname: '%env(resolve:DATABASE_NAME)%'
+        user: '%env(resolve:DATABASE_USER)%'
+        password: '%env(resolve:DATABASE_PASSWORD)%'
+    orm:
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            App:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
